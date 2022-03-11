@@ -44,22 +44,6 @@ const styles = StyleSheet.create({
 });
 ```
 
-backgroundColor?:string,
-borderColor?:string,
-containerStyle?: ViewStyle,
-date?: string,
-fontStyle?: TextStyle,
-icon?: any,
-inputDayStyle?:ViewStyle,
-inputMonthStyle?:ViewStyle,
-inputStyle?:ViewStyle,
-inputYearStyle?:ViewStyle
-itemStyleModal?:ViewStyle,
-modalBackgroundColor?:string,
-selectedColor?:string,
-selectedTextColor?:string,
-textStyleModal?:TextStyle,
-
 ## Properties
 
 | Property             | Description               |
