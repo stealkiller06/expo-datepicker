@@ -1,22 +1,23 @@
-export function getDays(numberOfDays:number){
+import { Option } from '../interfaces/option';
 
-    let arrayOfNumbers = []
-    for(let i:number = 1; i<=numberOfDays; i++){
+export function getDays(numberOfDays:number):Option[] {
+  const arrayOfNumbers:Option[] = [];
 
-        if(i<10){
-            arrayOfNumbers.push({
-                value:"0"+i,
-                label:"0"+i
-            })
-        }else{
-            arrayOfNumbers.push({
-                value:i,
-                label:i
-            })
-
-        }
-  
+  for (let i = 1; i <= numberOfDays; i += 1) {
+    if (i < 10) {
+      arrayOfNumbers.push({
+        value: `0${i}`,
+        label: `0${i}`,
+      });
+    } else {
+      arrayOfNumbers.push({
+        value: i,
+        label: i.toString(),
+      });
     }
+  }
 
-    return arrayOfNumbers;
+  return arrayOfNumbers;
 }
+
+export default getDays;

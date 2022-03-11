@@ -1,14 +1,15 @@
-export function getYears(){
+import { Option } from '../interfaces/option';
 
-    let arrayOfYears = []
-    for(let i:number = 1940; i<=new Date().getFullYear(); i++){
+export const getYears = ():Option[] => {
+  const arrayOfYears:Option[] = [];
+  for (let i = 1940; i <= new Date().getFullYear() + 10; i += 1) {
+    arrayOfYears.push({
+      value: i,
+      label: i.toString(),
+    });
+  }
 
-        arrayOfYears.push({
-            value:i,
-            label:i
-        })
-  
-    }
+  return arrayOfYears.reverse();
+};
 
-    return arrayOfYears.reverse();
-}
+export default getYears;
