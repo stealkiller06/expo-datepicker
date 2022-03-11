@@ -1,12 +1,17 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 import { Option } from '../interfaces/option';
 
-type ItemProps = {
+export interface ItemProps  {
   current: Option | null,
   label: string,
   option: Option,
-  value: string
+  value: string,
+  selectedColor?:string,
+  selectedTextColor?:string,
+  textStyleModal?:TextStyle,
+  modalContainerStyle?:ViewStyle,
+  containerStyle?: ViewStyle,
   onPress: (option: Option) => void
 };
 export default function Item(props: ItemProps) {
@@ -15,15 +20,19 @@ export default function Item(props: ItemProps) {
     value,
     current,
     option,
+    selectedColor,
+    selectedTextColor,
   } = props;
 
-  const isSelected = value === current?.value;
+  const isSelected = Number(value) === Number(current?.value);
+
+
 
   return (
     <TouchableOpacity
       onPress={() => onPress(option)}
       style={{
-        backgroundColor: isSelected ? '#6AA1A4' : '#FFF',
+        backgroundColor: isSelected ? selectedColor: 'rgba(0,0,0,0.0)',
         width: '100%',
         height: 40,
         justifyContent: 'center',
@@ -32,7 +41,7 @@ export default function Item(props: ItemProps) {
     >
       <Text
         style={{
-          color: isSelected ? '#FFF' : 'black',
+          color: isSelected ? selectedTextColor : 'black',
           fontSize: 16,
         }}
       >

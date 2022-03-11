@@ -1,6 +1,6 @@
 {
   "name": "expo-datepicker",
-  "version": "1.0.91",
+  "version": "1.0.21",
   "description": "Simple date picker",
   "main": "lib/index",
   "types": "lib/index.d.ts",
