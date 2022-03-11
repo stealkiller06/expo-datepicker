@@ -44,14 +44,41 @@ const styles = StyleSheet.create({
 });
 ```
 
+backgroundColor?:string,
+borderColor?:string,
+containerStyle?: ViewStyle,
+date?: string,
+fontStyle?: TextStyle,
+icon?: any,
+inputDayStyle?:ViewStyle,
+inputMonthStyle?:ViewStyle,
+inputStyle?:ViewStyle,
+inputYearStyle?:ViewStyle
+itemStyleModal?:ViewStyle,
+modalBackgroundColor?:string,
+selectedColor?:string,
+selectedTextColor?:string,
+textStyleModal?:TextStyle,
+
 ## Properties
 
-| Property       | Description           |
-| -------------- | --------------------- |
-| date           | Current date selected |
-| icon           | Icon                  |
-| fontStyle      | Input text style      |
-| containerStyle | Container Style       |
+| Property             | Description               |
+| -------------------- | ------------------------- |
+| date                 | Current date selected     |
+| icon                 | Icon                      |
+| fontStyle            | Input text style          |
+| containerStyle       | Container Style           |
+| backgroundColor      | Input background color    |
+| borderColor          | Change border color       |
+| inputDayStyle        | Change style day input    |
+| inputMonthStyle      | Change Style month input  |
+| inputYearStyle       | Change style year input   |
+| inputStyle           | Change style of all input |
+| itemStyleModal       | Change style item modal   |
+| modalBackgroundColor | Change modal background   |
+| selectedColor        | Change color item modal   |
+| selectedTextColor    | Change text color item    |
+| textStyleModal       | Change text style item    |
 
 ## Events
 

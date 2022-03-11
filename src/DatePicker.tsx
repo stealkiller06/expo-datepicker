@@ -11,11 +11,22 @@ import styles from './styles';
 const YEARS = getYears();
 
 export interface DatepickerProps {
+  backgroundColor?:string,
+  borderColor?:string,
+  containerStyle?: ViewStyle,
   date?: string,
-  onChange?: (date: string) => void | undefined,
-  icon?: any,
   fontStyle?: TextStyle,
-  containerStyle?: ViewStyle
+  icon?: any,
+  inputDayStyle?:ViewStyle,
+  inputMonthStyle?:ViewStyle,
+  inputStyle?:ViewStyle,
+  inputYearStyle?:ViewStyle
+  itemStyleModal?:ViewStyle,
+  modalBackgroundColor?:string,
+  selectedColor?:string,
+  selectedTextColor?:string,
+  textStyleModal?:TextStyle,
+  onChange?: (date: string) => void | undefined,
 }
 
 function getDaysInMonth(currMonth: number, currYear: number): number {
@@ -24,11 +35,22 @@ function getDaysInMonth(currMonth: number, currYear: number): number {
 
 export default function DatePicker(props: DatepickerProps) {
   const {
-    onChange,
-    date = '',
-    icon,
-    fontStyle = {},
+    backgroundColor,
+    borderColor = '#577C7D',
     containerStyle = {},
+    date = '',
+    fontStyle = {},
+    icon,
+    inputDayStyle,
+    inputMonthStyle,
+    inputStyle,
+    inputYearStyle,
+    itemStyleModal,
+    modalBackgroundColor = '#FFF',
+    onChange,
+    selectedColor = '#6AA1A4',
+    selectedTextColor = '#FFF',
+    textStyleModal,
   } = props;
   const [month, setMonth] = useState<Option>();
   const [day, setDay] = useState<Option>();
@@ -37,8 +59,8 @@ export default function DatePicker(props: DatepickerProps) {
     if (!year || !month) return [];
 
     const numberOfDays = getDaysInMonth(
-      Number(month.value.toString()),
-      Number(year.value.toString()),
+      Number(month.value),
+      Number(year.value),
     );
 
     return getDays(numberOfDays);
@@ -60,7 +82,6 @@ export default function DatePicker(props: DatepickerProps) {
     };
 
     setDay(dayOption);
-
     if (monthCurrent) {
       setMonth(monthCurrent);
     }
@@ -69,53 +90,100 @@ export default function DatePicker(props: DatepickerProps) {
     }
   }
 
+  function valueChanged(name:'month' | 'year' | 'day', currVal:Option): void {
+    const currDay = name === 'day' ? currVal : day;
+    const currMonth = name === 'month' ? currVal : month;
+    const currYear = name === 'year' ? currVal : year;
+
+    const currDate = `${currYear?.value || ''}/${currMonth?.value || ''}/${currDay?.value || ''}`;
+
+    if (onChange) {
+      onChange(currDate);
+    }
+  }
+
   useEffect(() => {
-    const currentDate: Date = new Date(date || '');
+    const currentDate: Date = date ? new Date(date) : new Date();
     fillDate(currentDate);
   }, []);
 
-  useEffect(() => {
-    function valueChanged(): void {
-      const currDate = `${year?.value || ''}/${month?.value || ''}/${day?.value || ''}`;
-
-      if (onChange) {
-        onChange(currDate);
-      }
-    }
-    valueChanged();
-  }, [day, year, month, onChange]);
-
   return (
-    <View style={[
-      styles.datePickerContainer,
-      containerStyle,
-    ]}
+    <View style={{
+      ...styles.datePickerContainer,
+      ...containerStyle,
+    }}
     >
       <Input
         placeholder="No Selected"
         options={Months}
         option={month || null}
         fontStyle={fontStyle}
-        style={{ flex: 3 }}
-        onSelected={(value) => { setMonth(value); }}
+        selectedColor={selectedColor}
+        selectedTextColor={selectedTextColor}
+        textStyleModal={textStyleModal}
+        itemStyleModal={itemStyleModal}
+        modalBackgroundColor={modalBackgroundColor}
+        borderColor={borderColor}
+        flex={3}
+        style={{
+          ...{
+            backgroundColor,
+            borderColor,
+          },
+          ...inputStyle,
+          ...inputMonthStyle,
+        }}
+        onSelected={(value) => { setMonth(value); valueChanged('month', value); }}
         icon={icon}
+
       />
 
       <Input
+        selectedColor={selectedColor}
+        selectedTextColor={selectedTextColor}
+        textStyleModal={textStyleModal}
+        itemStyleModal={itemStyleModal}
+        modalBackgroundColor={modalBackgroundColor}
+        borderColor={borderColor}
         placeholder="No Selected"
-        style={{ flex: 1.5 }}
+        flex={1.5}
+        style={{
+          ...{
+            backgroundColor,
+            borderColor,
+          },
+          ...inputStyle,
+          ...inputDayStyle,
+        }}
         options={currentDays}
         option={day || null}
-        onSelected={(value) => { setDay(value); }}
+        fontStyle={fontStyle}
+        onSelected={(value) => { setDay(value); valueChanged('day', value); }}
         icon={icon}
+
       />
 
       <Input
+        selectedColor={selectedColor}
+        selectedTextColor={selectedTextColor}
+        textStyleModal={textStyleModal}
+        itemStyleModal={itemStyleModal}
+        modalBackgroundColor={modalBackgroundColor}
+        borderColor={borderColor}
         placeholder="No Selected"
-        style={{ flex: 2 }}
+        flex={2}
+        style={{
+          ...{
+            backgroundColor,
+            borderColor,
+          },
+          ...inputStyle,
+          ...inputYearStyle,
+        }}
         options={YEARS}
         option={year || null}
-        onSelected={(value) => { setYear(value); }}
+        fontStyle={fontStyle}
+        onSelected={(value) => { setYear(value); valueChanged('year', value); }}
         icon={icon}
       />
     </View>
