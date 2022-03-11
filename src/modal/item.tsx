@@ -12,6 +12,7 @@ export interface ItemProps  {
   textStyleModal?:TextStyle,
   modalContainerStyle?:ViewStyle,
   containerStyle?: ViewStyle,
+  itemStyleModal?:ViewStyle
   onPress: (option: Option) => void
 };
 export default function Item(props: ItemProps) {
@@ -22,6 +23,8 @@ export default function Item(props: ItemProps) {
     option,
     selectedColor,
     selectedTextColor,
+    itemStyleModal,
+    textStyleModal
   } = props;
 
   const isSelected = Number(value) === Number(current?.value);
@@ -37,12 +40,14 @@ export default function Item(props: ItemProps) {
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
+        ...itemStyleModal
       }}
     >
       <Text
         style={{
           color: isSelected ? selectedTextColor : 'black',
           fontSize: 16,
+          ...textStyleModal
         }}
       >
         {option.label}
