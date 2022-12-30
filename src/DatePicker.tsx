@@ -103,9 +103,11 @@ export default function DatePicker(props: DatepickerProps) {
   }
 
   useEffect(() => {
-    const currentDate: Date = date ? new Date(date) : new Date();
+     const dateFormated = date.replaceAll('/', '-');
+
+    const currentDate: Date = date ? new Date(dateFormated) : new Date();
     fillDate(currentDate);
-  }, []);
+  }, [date]);
 
   return (
     <View style={{
